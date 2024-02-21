@@ -36,7 +36,9 @@ passport.use(new Strategy({
 router.get("/facebook/login", passport.authenticate("facebook", { scope: ['pages_show_list', 'pages_messaging', 'pages_read_user_content', 'pages_manage_engagement'] }));
 
 router.post('/facebook/getCompleteData', async (req, res) => {
+    console.log("GG");
     try {
+        console.log("g");
         const { code } = req.body;
         const queryParams = new URLSearchParams({
             client_id: process.env.FB_APP_ID,
@@ -49,6 +51,7 @@ router.post('/facebook/getCompleteData', async (req, res) => {
             method: 'GET',
         });
         const data = await response.json();
+        console.log(data);
         // for long term access token
         const queryParams1 = new URLSearchParams({
             client_id: process.env.FB_APP_ID,
@@ -95,7 +98,8 @@ router.post('/facebook/getuserId', async (req, res) => {
 })
 
 router.post('/facebook/getConversations', async (req, res) => {
-    try {
+    console.log("enter")
+    try { console.log("G");
         const { pageId, accessToken } = req.body;
         const allConversations = await Conversation.find({ pageId });
         return res.status(200).send({ status: true, conversations:allConversations });
