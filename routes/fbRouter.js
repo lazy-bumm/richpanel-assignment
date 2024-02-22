@@ -46,12 +46,14 @@ router.post('/facebook/getCompleteData', async (req, res) => {
             redirect_uri: process.env.FRONTEND_HOST,
             code: code,
         });
+        console.log(process.env.FRONTEND_HOST);
         const url = `https://graph.facebook.com/v17.0/oauth/access_token?${queryParams}`;
         const response = await fetch(url, {
             method: 'GET',
         });
+
+        console.log("done");
         const data = await response.json();
-        console.log(data);
         // for long term access token
         const queryParams1 = new URLSearchParams({
             client_id: process.env.FB_APP_ID,
